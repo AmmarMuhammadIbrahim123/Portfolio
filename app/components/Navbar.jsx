@@ -1,9 +1,10 @@
 "use client"
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { assets } from '@/assets/assets';
 
 const Navbar = () => {
+  const[isScroll, setIsScroll]=useState(false)
   const sideMenuRef=useRef();
 
   const openMenu = () => {
@@ -15,21 +16,31 @@ const Navbar = () => {
    sideMenuRef.current.style.transform = 'translateX(16rem)';
     
   };
+  useEffect(()=>{
+    window.addEventListener("scroll",()=>{
+      if(scrollY>50){
+        setIsScroll(true)
+      }else{
+        setIsScroll(false)
+      }
+    })
+  },[])
   
   return (
     <>
     <div  className='fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] '>
     <Image src={assets.header_bg_color} alt='' className='w-full'/>
     </div>
-    <nav className='w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50'>
+    <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 ${isScroll? 
+      "bg-white opacity-50 backdrop-blur-lg shadow-sm font-bold": "" }`}>
       <a href='#top'>
         <Image src={assets.logo} alt="" className='w-28 cursor-pointer mr-14' />
       </a>
 
-      <ul className=' hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 
-      bg-white shadow-sm bg-opacity-50'>
+      <ul className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 
+      ${isScroll? "" : " bg-white shadow-sm opacity-60"}`}>
         <li><a href="#top">Home</a></li>
-        <li><a href="#About">About Us</a></li>
+        <li><a href="#About">About me</a></li>
         <li><a href="#Services">Services</a></li>
         <li><a href="#MyWork">My Work</a></li>
         <li><a href="#Contact">Contact me</a></li>
@@ -48,16 +59,16 @@ const Navbar = () => {
 
         {/* MOBILE MENU */}
         <div>
-          <ul ref={sideMenuRef} className=' flex md:hidden flex-col px-10 py-20 fixed -right-64 top-0 bottom-0 
+          <ul ref={sideMenuRef} className=' flex md:hidden flex-col gap-y-9 px-10 py-20 fixed -right-64 top-0 bottom-0 
           w-64 z-50 h-screen bg-rose-50 transition duration-500'>
 
             <div className='absolute right-6 top-6' onClick={closeMenu}>
               <Image src={assets.close_black} alt=' close-icon' className='w-5'/>
             </div>
-        <li><a href="#top" onClick={closeMenu}>Home</a></li>
-        <li><a href="#About" onClick={closeMenu}>About Us</a></li>
-        <li><a href="#Services" onClick={closeMenu}>Services</a></li>
-        <li><a href="#MyWork" onClick={closeMenu}>My Work</a></li>
+        <li><a href="#top"  onClick={closeMenu}>Home</a></li>
+        <li><a href="#About"  onClick={closeMenu}>About me</a></li>
+        <li><a href="#Services"  onClick={closeMenu}>Services</a></li>
+        <li><a href="#MyWork"  onClick={closeMenu}>My Work</a></li>
         <li><a href="#Contact" onClick={closeMenu}>Contact me</a></li>
 
       </ul>
