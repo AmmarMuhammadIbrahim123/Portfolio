@@ -1,8 +1,10 @@
 import About from "./components/About";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Services from "./components/Services";
+import ThemeToggle from "./components/ThemeToggle";
 import Work from "./components/Work";
 
 export default function Home() {
@@ -15,6 +17,8 @@ export default function Home() {
    <Services/>
    <Work/>
    <Contact/>
+   <Footer/>
+   <ThemeToggle/> 
    </>
   );
 }

@@ -1,28 +1,15 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata = {
-  title: "Portfolio",
-  description: "My-Portfolio",
-};
+// app/layout.js
+import './globals.css';
+import { ThemeProvider } from 'next-themes';
 
 export default function RootLayout({ children }) {
   return (
-    <html className="scroll-smooth" lang="en">
-      <body className={`${geistSans.variable} antialiased`}>
-        {children}
+    <html suppressHydrationWarning>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={true}>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
 }
-
